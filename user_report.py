@@ -576,7 +576,7 @@ def make_his_df_for_user(_user):
                         '_history_dest_byte_count'].sum()*8 / (86400*1.0), 3)) + r' bit/sec')
 
     # user_by_rate
-    users_download_line_rate_history = query(get_url('dest_smoothed_rate',
+    users_download_line_rate_history = query(get_url('dest_rate',
                                                      _user,
                                                      FROM,
                                                      UNTIL,
@@ -587,12 +587,12 @@ def make_his_df_for_user(_user):
                                                      _history_type=True),
                                              USER,
                                              PASS)
-    if users_download_line_rate_history[0]['_history_dest_smoothed_rate'] == []:
+    if users_download_line_rate_history[0]['_history_dest_rate'] == []:
         _max_dn_speed.append(r'None')
     else:
         df_users_download_line_rate_history = make_his_df(
             users_download_line_rate_history,
-            '_history_dest_smoothed_rate',
+            '_history_dest_rate',
             _chart_type='line',
             _data_type='rate',
             _search_type='user_by_rate',
@@ -601,11 +601,11 @@ def make_his_df_for_user(_user):
             _max_dn_speed.append(r'None')
         else:
             _max_dn_speed.append(str(df_users_download_line_rate_history[
-                '_history_dest_smoothed_rate'].max()) + ' bit/sec')
+                '_history_dest_rate'].max()) + ' bit/sec')
 
     # top_app_by_rate
     top_app_for_user_by_download_rate_history = query(get_url_by_user(users_download_line_vol_history[0]['name'],
-                                                                      'dest_smoothed_rate',
+                                                                      'dest_rate',
                                                                       FROM,
                                                                       UNTIL),
                                                       USER,
@@ -618,7 +618,7 @@ def make_his_df_for_user(_user):
     else:
         df_top_app_for_user_by_download_rate_history = make_his_df(
             top_app_for_user_by_download_rate_history,
-            'dest_smoothed_rate',
+            'dest_rate',
             _chart_type='pie',
             _data_type='rate',
             _search_type='app_for_user_by_rate',
@@ -695,7 +695,7 @@ def make_his_df_for_user(_user):
                 r' bit/sec')
 
     # user_by_rate
-    users_upload_line_rate_history = query(get_url('source_smoothed_rate',
+    users_upload_line_rate_history = query(get_url('source_rate',
                                                    _user,
                                                    FROM,
                                                    UNTIL,
@@ -707,12 +707,12 @@ def make_his_df_for_user(_user):
                                            USER,
                                            PASS)
 
-    if users_upload_line_rate_history[0]['_history_source_smoothed_rate'] == []:
+    if users_upload_line_rate_history[0]['_history_source_rate'] == []:
         _max_up_speed.append(r'None')
     else:
         df_users_upload_line_rate_history = make_his_df(
             users_upload_line_rate_history,
-            '_history_source_smoothed_rate',
+            '_history_source_rate',
             _chart_type='line',
             _data_type='rate',
             _search_type='user_by_rate',
@@ -721,11 +721,11 @@ def make_his_df_for_user(_user):
             _max_up_speed.append(r'None')
         else:
             _max_up_speed.append(str(df_users_upload_line_rate_history[
-                '_history_source_smoothed_rate'].max()) + ' bit/sec')
+                '_history_source_rate'].max()) + ' bit/sec')
 
     # top_app_by_rate
     top_app_for_user_by_upload_rate_history = query(get_url_by_user(users_upload_line_vol_history[0]['name'],
-                                                                    'source_smoothed_rate',
+                                                                    'source_rate',
                                                                     FROM,
                                                                     UNTIL),
                                                     USER, PASS)
@@ -737,7 +737,7 @@ def make_his_df_for_user(_user):
     else:
         df_top_app_for_user_by_upload_rate_history = make_his_df(
             top_app_for_user_by_upload_rate_history,
-            'source_smoothed_rate',
+            'source_rate',
             _chart_type='pie',
             _data_type='rate',
             _search_type='app_for_user_by_rate',
@@ -866,6 +866,7 @@ def main():
 
     usernames = get_username(_start=0)
     chk_usernames = get_username(_start=0)
+    # make_his_df_for_user('User-43.227.116.48')
 #    make_his_df_for_user('wmk901.hangame.com')
     if check_gen(chk_usernames):
         try:
